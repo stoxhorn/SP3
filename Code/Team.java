@@ -6,10 +6,10 @@ public class Team {
 
     private final int teamID;
     private String teamName;
-    int points;
-    int gamesPlayed;
-    int goalsScored;
-    int goalsConceded;
+    private int points;
+    private int gamesPlayed;
+    private int goalsScored;
+    private int goalsConceded;
 
     ArrayList<Integer> playerIDs = new ArrayList<Integer>();
     ArrayList<Integer> matchIDs = new ArrayList<Integer>();
