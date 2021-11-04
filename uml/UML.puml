@@ -5,20 +5,16 @@ class Main
  }
 
 class Team {
+static ArrayList<Player> players
 
 final int teamID
 
 String teamName
 
-int point
+int points
 int gamesPlayed
 int goalsScored
-int goalConceded
-int goalDifference
-
-ArrayList<Integer> playerIDs
-
-ArrayList<Integer> matchIDs
+int goalsConceded
 
 }
 
@@ -33,30 +29,21 @@ String phoneNumber
 
 }
 
-class KnockoutPhase {
-ArrayList<Integer>  TeamIDs
-ArrayList<Integer> matchIDs
+class KnockoutPhase extends Tournament{
+
 
 }
 
-class Group {
-ArrayList<Integer> TeamIDs
-ArrayList<Integer> matchIDs
+'class GroupPhase extends Tournament {
 
-}
+'ArrayList<Team> groups
+'ArrayList<Match> matches
 
-class Table {
+'}
 
-Group group1
-Group group2
-Group group3
-Group group4
 
-viewTable()
 
-}
-
-class Match{
+class Match {
 
 final int matchID
 
@@ -72,38 +59,35 @@ DateTime date
 
 class TournamentOrganizer {
 showMenu()
-updateResult()
 setTournamentRules()
 
 viewMatchProgramme()
 viewTable()
 viewTeams()
 
-addTeam()
-addMatch()
-removeMatch()
-editMatch()
-addMatchToGroup()
-addMatchToKnockoutPhase()
-
-randomizeGroups()
-addTeamToGroup()
-saveGroup()
-saveKnockoutBracket()
-
 }
 
 class Tournament {
 
 static ArrayList<Match> matches
-static ArrayList<Player> players
 static ArrayList<Team> teams
 
-Table table
 KnockoutPhase knockoutPhase
 
+addTeam()
+addMatch()
+removeMatch()
+editMatch()
+'addMatchToGroup()
+addMatchToKnockoutPhase()
+saveKnockoutBracket()
+getWinner()
 saveToFile()
 
+'addMatchToGroup()
+'randomizeGroups()
+'addTeamToGroup()
+'saveGroup()
 }
 
 class User {
@@ -115,27 +99,25 @@ viewMatchProgramme()
 
 }
 
-class Compare implements Comparator{
+'class Compare implements Comparator{
 
-sortTeams()
+'int goalDifference
 
-}
+'sortTeams()
 
-Player *-- Team
-Group --* Match
-Group --* Team
-KnockoutPhase --* Match
-KnockoutPhase --*Team
-Table --* Group
-Main --* TournamentOrganizer
-Main --* Tournament
-Main --* User
+'}
+
+Player --* Team
+'GroupPhase --* Match
+'GroupPhase --* Team
+Tournament*-- Match
+Tournament *-- Team
+Main *-- TournamentOrganizer
+Main *-- User
 
 'Tournament --* Team
-Tournament --* KnockoutPhase
-Tournament --* Compare
+'Tournament *-- Compare
 'Tournament --* Match
-Tournament --* Table
-Tournament --* Player
-TournamentOrganizer --* Tournament
+
+TournamentOrganizer *-- KnockoutPhase
 @enduml
