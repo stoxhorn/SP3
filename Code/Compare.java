@@ -1,11 +1,11 @@
-import java.util.Comparator;
+/*import java.util.Comparator;
 
 public class Compare implements Comparator {
 
 
     @Override  //implementerer metoderne for Comparator-klassen
     public int compare(Team team1, Team team2) {
-        int goalDifference = goalsScored - goalsConceded;
+        int goalDifference = team1.getGoalsScored() - team1.goalsConceded;
 
         if (team1.getPoints() > team2.getPoints() ) {
             return 1;
@@ -18,4 +18,4 @@ public class Compare implements Comparator {
         }
 
     }
-}
+}*/
