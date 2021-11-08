@@ -12,7 +12,6 @@ public class TournamentOrganizer {
         input = new Scanner(System.in);
         password = "password";
 
-
     }
     public void showMenu() {
         System.out.println("Welcome to the main menu");
@@ -29,14 +28,39 @@ public class TournamentOrganizer {
          //   userMenu();
         }
         else if (inputInt == 2) {
-
             organizerLogin();
         }
         else {
-
             System.out.println("That is not an option, try again");
             return;
         }
+    }
+
+    private void organizerLogin() {
+        System.out.println("Please enter the Organizer password. \nIf you would like to return to the previous screen, type back.");
+
+        String input = this.input.nextLine();
+        String switcher = input;
+        try {
+            switcher = String.valueOf(Integer.parseInt(input));
+        } catch (Exception e) {
+
+        }
+        switch (switcher) {
+            case "password": organizerMenu();
+                break;
+            case "back" : showMenu();
+                break;
+        }
+
+        /*if (input == password) {
+            organizerMenu();
+        } else if (input == "back") {
+            showMenu();
+        } else {
+            System.out.println("That is not the correct password, please try again");
+            return;
+        }*/
     }
     private void organizerMenu() {
 
@@ -53,6 +77,31 @@ public class TournamentOrganizer {
         while (running) {
 
             String input = this.input.nextLine();
+            String switcher = input;
+            try {
+                switcher = String.valueOf(Integer.parseInt(input));
+            } catch (Exception e) {
+
+            }
+            switch (switcher) {
+                case "1": tournamentMenu();
+                    break;
+                case "2": teamMenu();
+                    break;
+                case "3" : playerMenu();
+                    break;
+                case "4" : matchMenu();
+                    break;
+                case "5" : viewMatchProgramme();
+                    break;
+                case "6" : showMenu();
+                    break;
+                case "7" : save();
+                           running = false;
+                default: System.out.println("That is not an option, try again");
+
+            }
+            /*String input = this.input.nextLine();
 
             if (input == "1") {
                 tournamentMenu();
@@ -74,13 +123,97 @@ public class TournamentOrganizer {
             } else {
                 System.out.println("That is not an option, try again");
                 return;
-            }
+            }*/
         }
 
         viewTeams(); //hmmm hvor skal den være?
 
     }
+    private void tournamentMenu() {
+        System.out.println("Welcome to the tournament menu");
 
+        System.out.println("Type 1 to create a new tournament");
+        System.out.println("Type 2 to edit an existing tournament");
+        System.out.println("Type 3 to delete existing tournament");
+        System.out.println("Type 4 to go back to organizer menu");
+
+        String input = this.input.nextLine();
+        String switcher = input;
+
+        try {
+            switcher = String.valueOf(Integer.parseInt(input));
+        } catch (Exception e) {
+
+        }
+        switch (switcher) {
+            case "1" : createNewTournament();
+        break;
+            case "2" : editTournament();
+        break;
+            case "3" : deleteTournament();
+        break;
+            case "4" : organizerMenu();
+        default: System.out.println("That is not an option, try again");
+
+        }
+
+        /*if (input == "1") {
+            createNewTournament();
+        } else if (input == "2") {
+            editTournament();
+        } else if (input == "3") {
+            deleteTournament();
+        } else if (input == "4") {
+            organizerMenu();
+        } else {
+            System.out.println("That is not an option, please try again");
+            return;
+        }*/
+
+    }
+    private void teamMenu(){
+        System.out.println("Welcome to the team menu");
+
+        System.out.println("Type 1 to add a new team to tournament");
+        System.out.println("Type 2 to edit team");
+        System.out.println("Type 3 to delete team");
+        System.out.println("Type 4 to go back to organizer menu");
+
+        String input = this.input.nextLine();
+        String switcher = input;
+
+        try {
+            switcher = String.valueOf(Integer.parseInt(input));
+        } catch (Exception e) {
+
+        }
+        switch (switcher) {
+            case "1" : addTeam();
+                break;
+            case "2" : editTeam();
+                break;
+            case "3" : deleteTeam();
+                break;
+            case "4" : organizerMenu();
+            default: System.out.println("That is not an option, try again");
+
+        }
+
+
+        /*if (input == "1") {
+            addTeam();
+        } else if (input == "2") {
+            editTeam();
+        } else if (input == "3") {
+            deleteTeam();
+        } else if (input == "4") {
+            organizerMenu();
+        } else {
+            System.out.println("That is not an option, please try again");
+            return;
+        }*/
+
+    }
     private void addPlayer() {
     }
 
@@ -216,76 +349,33 @@ public class TournamentOrganizer {
 
     }
 
-    private void organizerLogin() {
-        System.out.println("Please enter the Organizer password. If you would like to go back type back");
-
-        String input = this.input.nextLine();
-
-        if (input == password) {
-            organizerMenu();
-        } else if (input == "back") {
-            showMenu();
-        } else {
-            System.out.println("That is not the correct password, please try again");
-            return;
-        }
-    }
-
-    private void tournamentMenu() {
-        System.out.println("Type 1 to create a new tournament");
-        System.out.println("Type 2 to edit an existing tournament");
-        System.out.println("Type 3 to delete existing tournament");
-        System.out.println("Type 4 to go back to organizer menu");
-
-        String input = this.input.nextLine();
-
-        if (input == "1") {
-            createNewTournament();
-        } else if (input == "2") {
-            editTournament();
-        } else if (input == "3") {
-            deleteTournament();
-        } else if (input == "4") {
-            organizerMenu();
-        } else {
-            System.out.println("That is not an option, please try again");
-            return;
-        }
-
-    }
-
-    private void teamMenu(){
-        System.out.println("Type 1 to add a new team to tournament");
-        System.out.println("Type 2 to edit team");
-        System.out.println("Type 3 to delete team");
-        System.out.println("Type 4 to go back to organizer menu");
-
-        String input = this.input.nextLine();
-
-        if (input == "1") {
-            addTeam();
-        } else if (input == "2") {
-            editTeam();
-        } else if (input == "3") {
-            deleteTeam();
-        } else if (input == "4") {
-            organizerMenu();
-        } else {
-            System.out.println("That is not an option, please try again");
-            return;
-        }
-
-    }
-
     private void matchMenu() {
-        System.out.println("Type 1 to add a new match");
+        System.out.println("Welcome to the match menu");
+        System.out.println("Type 1 to create a new match");
         System.out.println("Type 2 to edit an existing match");
         System.out.println("Type 3 to delete a match");
         System.out.println("Type 4 to go back to organizer menu");
 
         String input = this.input.nextLine();
+        String switcher = input;
 
-        if (input == "1") {
+        try {
+            switcher = String.valueOf(Integer.parseInt(input));
+        } catch (Exception e) {
+
+        }
+        switch (switcher) {
+            case "1" : createMatch();
+                break;
+            case "2" : editMatch();
+                break;
+            case "3" : deleteMatch();
+                break;
+            case "4" : organizerMenu();
+            default: System.out.println("That is not an option, try again");
+
+        }
+        /*if (input == "1") {
             createMatch();
         } else if (input =="2") {
             editMatch();
@@ -296,10 +386,11 @@ public class TournamentOrganizer {
         } else {
             System.out.println("That is not an option, please try again");
             return;
-        }
+        }*/
     }
 
 private void playerMenu() {
+    System.out.println("Welcome to the player menu");
     System.out.println("Type 1 to add a new player");
     System.out.println("Type 2 to add a player to a team");
     System.out.println("Type 3 to delete a player");
@@ -307,8 +398,27 @@ private void playerMenu() {
     System.out.println("Type 5 to go back to the organizer menu");
 
     String input = this.input.nextLine();
+    String switcher = input;
 
-    if (input == "1") {
+    try {
+        switcher = String.valueOf(Integer.parseInt(input));
+    } catch (Exception e) {
+
+    }
+    switch (switcher) {
+        case "1" : addPlayer();
+            break;
+        case "2" : addPlayerToTeam();
+            break;
+        case "3" : deletePlayer();
+            break;
+        case "4" : editPlayer();
+            break;
+        case "5" : organizerMenu();
+        default: System.out.println("That is not an option, try again");
+    }
+
+    /*if (input == "1") {
         addPlayer();
     } else if (input == "2") {
         addPlayerToTeam();
@@ -321,9 +431,7 @@ private void playerMenu() {
     } else {
         System.out.println("That is not an option, please try again");
         return;
-    }
-
-
+    }*/
 }
 
 }
