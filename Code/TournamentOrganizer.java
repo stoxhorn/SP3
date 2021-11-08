@@ -15,8 +15,8 @@ public class TournamentOrganizer {
     }
     public void showMenu() {
         System.out.println("Welcome to the main menu");
-        System.out.println("Press 1 to enter as a user");
-        System.out.println("Press 2 to login as the organizer");
+        System.out.println("\tPress 1 to enter as a user");
+        System.out.println("\tPress 2 to login as the organizer");
 
 
         // this needs a try/catch clause
@@ -65,13 +65,13 @@ public class TournamentOrganizer {
     private void organizerMenu() {
 
         System.out.println("Welcome to the Organizer Menu. What would you like to do? ;(");
-        System.out.println("Type 1 to access tournament menu");
-        System.out.println("Type 2 to access team menu");
-        System.out.println("Type 3 to access player menu");
-        System.out.println("Type 4 to access match menu");
-        System.out.println("Type 5 to see the match programme");
-        System.out.println("Type 6 to go back to main menu");
-        System.out.println("Type 7 to save and quit");
+        System.out.println("\tType 1 to access tournament menu");
+        System.out.println("\tType 2 to access team menu");
+        System.out.println("\tType 3 to access player menu");
+        System.out.println("\tType 4 to access match menu");
+        System.out.println("\tType 5 to see the match programme");
+        System.out.println("\tType 6 to go back to main menu");
+        System.out.println("\tType 7 to save and quit");
 
         boolean running = true;
         while (running) {
@@ -132,10 +132,10 @@ public class TournamentOrganizer {
     private void tournamentMenu() {
         System.out.println("Welcome to the tournament menu");
 
-        System.out.println("Type 1 to create a new tournament");
-        System.out.println("Type 2 to edit an existing tournament");
-        System.out.println("Type 3 to delete existing tournament");
-        System.out.println("Type 4 to go back to organizer menu");
+        System.out.println("\tType 1 to create a new tournament");
+        System.out.println("\tType 2 to edit an existing tournament");
+        System.out.println("\tType 3 to delete existing tournament");
+        System.out.println("\tType 4 to go back to organizer menu");
 
         String input = this.input.nextLine();
         String switcher = input;
@@ -174,10 +174,10 @@ public class TournamentOrganizer {
     private void teamMenu(){
         System.out.println("Welcome to the team menu");
 
-        System.out.println("Type 1 to add a new team to tournament");
-        System.out.println("Type 2 to edit team");
-        System.out.println("Type 3 to delete team");
-        System.out.println("Type 4 to go back to organizer menu");
+        System.out.println("\tType 1 to add a new team to tournament");
+        System.out.println("\tType 2 to edit team");
+        System.out.println("\tType 3 to delete team");
+        System.out.println("\tType 4 to go back to organizer menu");
 
         String input = this.input.nextLine();
         String switcher = input;
@@ -264,8 +264,8 @@ public class TournamentOrganizer {
         System.out.println("The game is won when a team reaches 10 goals. The winner will advance to the next stage while the loser is out");
         System.out.println("When a team concedes a goal, they will be responsible for re-starting the game");
         System.out.println("While playing you are not allowed to spin your players");
-        System.out.println("Type 1 to add a new tournament rules");
-        System.out.println("Type 2 to go back to organizer menu");
+        System.out.println("\tType 1 to add a new tournament rules");
+        System.out.println("\tType 2 to go back to organizer menu");
 
         String input = this.input.nextLine();
 
@@ -351,10 +351,10 @@ public class TournamentOrganizer {
 
     private void matchMenu() {
         System.out.println("Welcome to the match menu");
-        System.out.println("Type 1 to create a new match");
-        System.out.println("Type 2 to edit an existing match");
-        System.out.println("Type 3 to delete a match");
-        System.out.println("Type 4 to go back to organizer menu");
+        System.out.println("\tType 1 to create a new match");
+        System.out.println("\tType 2 to edit an existing match");
+        System.out.println("\tType 3 to delete a match");
+        System.out.println("\tType 4 to go back to organizer menu");
 
         String input = this.input.nextLine();
         String switcher = input;
@@ -391,11 +391,11 @@ public class TournamentOrganizer {
 
 private void playerMenu() {
     System.out.println("Welcome to the player menu");
-    System.out.println("Type 1 to add a new player");
-    System.out.println("Type 2 to add a player to a team");
-    System.out.println("Type 3 to delete a player");
-    System.out.println("Type 4 to edit a player");
-    System.out.println("Type 5 to go back to the organizer menu");
+    System.out.println("\tType 1 to add a new player");
+    System.out.println("\tType 2 to add a player to a team");
+    System.out.println("\tType 3 to delete a player");
+    System.out.println("\tType 4 to edit a player");
+    System.out.println("\tType 5 to go back to the organizer menu");
 
     String input = this.input.nextLine();
     String switcher = input;
