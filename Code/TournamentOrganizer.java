@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class TournamentOrganizer {
@@ -25,7 +26,9 @@ public class TournamentOrganizer {
         int inputInt = Integer.parseInt(input);
 
         if (inputInt == 1) {
-         //   userMenu();
+            User user = new User();
+            user.userMenu();
+
         }
         else if (inputInt == 2) {
             organizerLogin();
@@ -37,21 +40,32 @@ public class TournamentOrganizer {
     }
 
     private void organizerLogin() {
+
+        //todo : få implementeret ignoreCase til back.
+
         System.out.println("Please enter the Organizer password. \nIf you would like to return to the previous screen, type back.");
+        boolean running = true;
+        while (running) {
 
-        String input = this.input.nextLine();
-        String switcher = input;
-        try {
-            switcher = String.valueOf(Integer.parseInt(input));
-        } catch (Exception e) {
 
-        }
-        switch (switcher) {
-            case "password": organizerMenu();
-                break;
-            case "back" : showMenu();
-                break;
-        }
+            String input = this.input.nextLine();
+            String switcher = input;
+            try {
+                switcher = String.valueOf(Integer.parseInt(input));
+            } catch (Exception e) {
+
+
+            }
+            switch (switcher) {
+                case "password":
+                    organizerMenu();
+                    break;
+                case "back":
+                    showMenu();
+                    break;
+                default:
+                    System.out.println("Wrong password. Please try again or type back to go back to main menu. Bitch");
+            }
 
         /*if (input == password) {
             organizerMenu();
@@ -61,6 +75,7 @@ public class TournamentOrganizer {
             System.out.println("That is not the correct password, please try again");
             return;
         }*/
+        }
     }
     private void organizerMenu() {
 
@@ -126,7 +141,7 @@ public class TournamentOrganizer {
             }*/
         }
 
-        viewTeams(); //hmmm hvor skal den være?
+        // viewTeams(); //hmmm hvor skal den være?
 
     }
     private void tournamentMenu() {
@@ -135,27 +150,38 @@ public class TournamentOrganizer {
         System.out.println("\tType 1 to create a new tournament");
         System.out.println("\tType 2 to edit an existing tournament");
         System.out.println("\tType 3 to delete existing tournament");
-        System.out.println("\tType 4 to go back to organizer menu");
+        System.out.println("\tType 4 to change the tournament rules");
+        System.out.println("\tType 5 to go back to organizer menu");
 
-        String input = this.input.nextLine();
-        String switcher = input;
+        boolean running = true;
+        while (running) {
+            String input = this.input.nextLine();
+            String switcher = input;
 
-        try {
-            switcher = String.valueOf(Integer.parseInt(input));
-        } catch (Exception e) {
+            try {
+                switcher = String.valueOf(Integer.parseInt(input));
+            } catch (Exception e) {
 
-        }
-        switch (switcher) {
-            case "1" : createNewTournament();
-        break;
-            case "2" : editTournament();
-        break;
-            case "3" : deleteTournament();
-        break;
-            case "4" : organizerMenu();
-        default: System.out.println("That is not an option, try again");
+            }
+            switch (switcher) {
+                case "1":
+                    createNewTournament();
+                    break;
+                case "2":
+                    editTournament();
+                    break;
+                case "3":
+                    deleteTournament();
+                    break;
+                case "4":
+                    setTournamentRules();
+                    break;
+                case "5":
+                    organizerMenu();
+                default:
+                    System.out.println("That is not an option, try again");
 
-        }
+            }
 
         /*if (input == "1") {
             createNewTournament();
@@ -169,7 +195,7 @@ public class TournamentOrganizer {
             System.out.println("That is not an option, please try again");
             return;
         }*/
-
+        }
     }
     private void teamMenu(){
         System.out.println("Welcome to the team menu");
@@ -179,25 +205,33 @@ public class TournamentOrganizer {
         System.out.println("\tType 3 to delete team");
         System.out.println("\tType 4 to go back to organizer menu");
 
-        String input = this.input.nextLine();
-        String switcher = input;
+        boolean running = true;
+        while (running) {
 
-        try {
-            switcher = String.valueOf(Integer.parseInt(input));
-        } catch (Exception e) {
+            String input = this.input.nextLine();
+            String switcher = input;
 
-        }
-        switch (switcher) {
-            case "1" : addTeam();
-                break;
-            case "2" : editTeam();
-                break;
-            case "3" : deleteTeam();
-                break;
-            case "4" : organizerMenu();
-            default: System.out.println("That is not an option, try again");
+            try {
+                switcher = String.valueOf(Integer.parseInt(input));
+            } catch (Exception e) {
 
-        }
+            }
+            switch (switcher) {
+                case "1":
+                    addTeam();
+                    break;
+                case "2":
+                    editTeam();
+                    break;
+                case "3":
+                    deleteTeam();
+                    break;
+                case "4":
+                    organizerMenu();
+                default:
+                    System.out.println("That is not an option, try again");
+
+            }
 
 
         /*if (input == "1") {
@@ -212,9 +246,17 @@ public class TournamentOrganizer {
             System.out.println("That is not an option, please try again");
             return;
         }*/
-
+        }
     }
     private void addPlayer() {
+        System.out.println("Please enter the name of the player you wish to add");
+        boolean running = true;
+        while (running) {
+
+
+
+        }
+
     }
 
     private void addPlayerToTeam(){
@@ -225,37 +267,67 @@ public class TournamentOrganizer {
     }
 
     private void createMatch() {
-
         System.out.println("Please insert the name of the first team here: ");
+        boolean running = true;
+        while (running) {
 
 
+        }
+        /*userInput = input.nextLine();
+        Team team1 = null; //
+        Team team2 = null;
+
+        Match newMatch = new Match();
+
+        newMatch.setTeam1(team1);
+        newMatch.setTeam2(team2);
+*/
     }
 
 
     private void addTeam() {
             System.out.println("Please insert the name of the new team");
+        boolean running = true;
+        while (running) {
             String fromInput = input.nextLine();
+
+        }
 
     }
 
     private void editTeam(){
+        boolean running = true;
+        while (running) {
 
+        }
     }
 
     private void editTournament() {
+        boolean running = true;
+        while (running) {
+
+        }
     }
 
     private void createNewTournament() {
         System.out.println("Please enter the name of your new tournament ");
+        boolean running = true;
+        while (running) {
+                        this.tournamentName = input.nextLine();
+            KnockoutPhase knockoutPhase = new KnockoutPhase(tournamentName);
+            System.out.println("Your tournament is now called: " + tournamentName + "\n");
+            System.out.println("Would you like to add a new team to the tournament?");
+            String input = this.input.nextLine();
 
-        this.tournamentName = input.nextLine();
-        KnockoutPhase knockoutPhase = new KnockoutPhase(tournamentName);
-        setTournamentRules();
+        }
     }
 
     private void deleteTeam(){
         System.out.println("Please enter the name of the team you want to remove from the tournament: ");
+        boolean running = true;
+        while (running) {
 
+        }
 
     }
 
@@ -263,90 +335,134 @@ public class TournamentOrganizer {
         System.out.println("By default we have the following rules for knockout phase: ");
         System.out.println("The game is won when a team reaches 10 goals. The winner will advance to the next stage while the loser is out");
         System.out.println("When a team concedes a goal, they will be responsible for re-starting the game");
-        System.out.println("While playing you are not allowed to spin your players");
-        System.out.println("\tType 1 to add a new tournament rules");
+        System.out.println("While playing you are not allowed to spin your players \n");
+        System.out.println("\tType 1 to add a new tournament rule");
         System.out.println("\tType 2 to go back to organizer menu");
+        boolean running = true;
+        while (running) {
+            String input = this.input.nextLine();
+            String switcher = input;
 
-        String input = this.input.nextLine();
+            try {
+                switcher = String.valueOf(Integer.parseInt(input));
+            } catch (Exception e) {
 
-        if(input == "1") {
-            addRules();
-        } else if(input == "2") {
-            organizerMenu();
-        } else {
-            System.out.println("That is not a valid answer. Please try again");
+            }
+            switch (switcher) {
+                case "1":
+                    addRules();
+                    break;
+                case "2":
+                    organizerMenu();
+                    break;
+                default:
+                    System.out.println("That is not an option, try again");
+
+            }
+
+            /*if (input == "1") {
+                addRules();
+            } else if (input == "2") {
+                organizerMenu();
+            } else {
+                System.out.println("That is not a valid answer. Please try again");
+            }*/
+
         }
-
-
     }
 
     private void addRules() {
         // Skal kodes så vi kan tilføje regler til tournamentrules.txt
         // lavet af Frederik og indeholder helt sikkert ikke fejl
 
-        System.out.println("Please enter a new rule to add to the tournament rules: ");
-        try
-        {
-            String filePath = "src/tournamentrules.txt";
-            FileWriter fw = new FileWriter(filePath, true);
+        System.out.println("Please enter a new rule to add to the tournament rule: ");
+        boolean running = true;
+        while (running) {
+            try {
+                String filePath = "src/tournamentrules.txt";
+                FileWriter fw = new FileWriter(filePath, true);
 
-            String lineToAppend = input.nextLine();
-            fw.write(lineToAppend);
-            fw.close();
-        }
-        catch(Exception e)
-        {
-            System.out.println(e);
+                String lineToAppend = input.nextLine();
+                fw.write(lineToAppend);
+                fw.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         }
     }
 
     private void viewMatchProgramme() {
         //Kalender med datoer, hold og kampe
         System.out.println("The upcoming matches are as follows: ");
+        boolean running = true;
+        while (running) {
 
+        }
     }
 
-    private void viewTournamentRules(){
-    // Made by Frederik-Mark og jeg blev lidt tabt i koden  );
-        File rules = new File("src/tournamentrules.txt");
-        Scanner input = null;
-        try {
-            input = new Scanner(rules);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+    private void viewTournamentRules() {
+        // Made by Frederik-Mark og jeg blev lidt tabt i koden  );
+        boolean running = true;
+        while (running) {
+            File rules = new File("src/tournamentrules.txt");
+            Scanner input = null;
+            try {
+                input = new Scanner(rules);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
-        while (input.hasNextLine())
-        {
-            System.out.println(input.nextLine());
-        }
+            while (input.hasNextLine()) {
+                System.out.println(input.nextLine());
+            }
 
+        }
     }
 
 
     private void viewTeams() {
+        boolean running = true;
+        while (running) {
 
+        }
     }
 
     private void deleteTournament() {
+        boolean running = true;
+        while (running) {
 
+        }
     }
     private void deleteMatch() {
         System.out.println("Select the match you wish to delete");
+        boolean running = true;
+        while (running) {
 
+        }
     }
 
     private void editMatch() {
         System.out.println("Select the match you with to edit");
+        boolean running = true;
+        while (running) {
+
+        }
     }
+
 
     private void deletePlayer() {
         System.out.println("Select the player you wish to delete");
+        boolean running = true;
+        while (running) {
 
+        }
     }
 
     private void editPlayer() {
+        boolean running = true;
+        while (running) {
 
+        }
     }
 
     private void matchMenu() {
@@ -355,26 +471,32 @@ public class TournamentOrganizer {
         System.out.println("\tType 2 to edit an existing match");
         System.out.println("\tType 3 to delete a match");
         System.out.println("\tType 4 to go back to organizer menu");
+        boolean running = true;
+        while (running) {
+            String input = this.input.nextLine();
+            String switcher = input;
 
-        String input = this.input.nextLine();
-        String switcher = input;
+            try {
+                switcher = String.valueOf(Integer.parseInt(input));
+            } catch (Exception e) {
 
-        try {
-            switcher = String.valueOf(Integer.parseInt(input));
-        } catch (Exception e) {
+            }
+            switch (switcher) {
+                case "1":
+                    createMatch();
+                    break;
+                case "2":
+                    editMatch();
+                    break;
+                case "3":
+                    deleteMatch();
+                    break;
+                case "4":
+                    organizerMenu();
+                default:
+                    System.out.println("That is not an option, try again");
 
-        }
-        switch (switcher) {
-            case "1" : createMatch();
-                break;
-            case "2" : editMatch();
-                break;
-            case "3" : deleteMatch();
-                break;
-            case "4" : organizerMenu();
-            default: System.out.println("That is not an option, try again");
-
-        }
+            }
         /*if (input == "1") {
             createMatch();
         } else if (input =="2") {
@@ -387,8 +509,8 @@ public class TournamentOrganizer {
             System.out.println("That is not an option, please try again");
             return;
         }*/
+        }
     }
-
 private void playerMenu() {
     System.out.println("Welcome to the player menu");
     System.out.println("\tType 1 to add a new player");
@@ -397,26 +519,34 @@ private void playerMenu() {
     System.out.println("\tType 4 to edit a player");
     System.out.println("\tType 5 to go back to the organizer menu");
 
-    String input = this.input.nextLine();
-    String switcher = input;
+    boolean running = true;
+    while (running) {
+        String input = this.input.nextLine();
+        String switcher = input;
 
-    try {
-        switcher = String.valueOf(Integer.parseInt(input));
-    } catch (Exception e) {
+        try {
+            switcher = String.valueOf(Integer.parseInt(input));
+        } catch (Exception e) {
 
-    }
-    switch (switcher) {
-        case "1" : addPlayer();
-            break;
-        case "2" : addPlayerToTeam();
-            break;
-        case "3" : deletePlayer();
-            break;
-        case "4" : editPlayer();
-            break;
-        case "5" : organizerMenu();
-        default: System.out.println("That is not an option, try again");
-    }
+        }
+        switch (switcher) {
+            case "1":
+                addPlayer();
+                break;
+            case "2":
+                addPlayerToTeam();
+                break;
+            case "3":
+                deletePlayer();
+                break;
+            case "4":
+                editPlayer();
+                break;
+            case "5":
+                organizerMenu();
+            default:
+                System.out.println("That is not an option, try again");
+        }
 
     /*if (input == "1") {
         addPlayer();
@@ -432,6 +562,6 @@ private void playerMenu() {
         System.out.println("That is not an option, please try again");
         return;
     }*/
+    }
 }
-
 }

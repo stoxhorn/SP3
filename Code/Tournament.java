@@ -60,7 +60,7 @@ public class Tournament {
             writer.close();
             System.out.println("Successfully added data to file");
         }catch (IOException e){
-            System.out.println("An error occured");
+            System.out.println("An error occurred");
             e.getStackTrace();
         }
     }
