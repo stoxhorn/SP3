@@ -1,6 +1,4 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class TournamentOrganizer {
@@ -8,12 +6,14 @@ public class TournamentOrganizer {
     private String password;
     private String userInput;
     private String tournamentName;
+    private KnockoutPhase knockTourny;
 
     public TournamentOrganizer() {
         input = new Scanner(System.in);
         password = "password";
 
     }
+
     public void showMenu() {
         System.out.println("Welcome to the main menu");
         System.out.println("\tPress 1 to enter as a user");
@@ -29,11 +29,9 @@ public class TournamentOrganizer {
             User user = new User();
             user.userMenu();
 
-        }
-        else if (inputInt == 2) {
+        } else if (inputInt == 2) {
             organizerLogin();
-        }
-        else {
+        } else {
             System.out.println("That is not an option, try again");
             return;
         }
@@ -77,6 +75,7 @@ public class TournamentOrganizer {
         }*/
         }
     }
+
     private void organizerMenu() {
 
         System.out.println("Welcome to the Organizer Menu. What would you like to do? ;(");
@@ -99,21 +98,29 @@ public class TournamentOrganizer {
 
             }
             switch (switcher) {
-                case "1": tournamentMenu();
+                case "1":
+                    tournamentMenu();
                     break;
-                case "2": teamMenu();
+                case "2":
+                    teamMenu();
                     break;
-                case "3" : playerMenu();
+                case "3":
+                    playerMenu();
                     break;
-                case "4" : matchMenu();
+                case "4":
+                    matchMenu();
                     break;
-                case "5" : viewMatchProgramme();
+                case "5":
+                    viewMatchProgramme();
                     break;
-                case "6" : showMenu();
+                case "6":
+                    showMenu();
                     break;
-                case "7" : save();
-                           running = false;
-                default: System.out.println("That is not an option, try again");
+                case "7":
+                    save();
+                    running = false;
+                default:
+                    System.out.println("That is not an option, try again");
 
             }
             /*String input = this.input.nextLine();
@@ -144,6 +151,7 @@ public class TournamentOrganizer {
         // viewTeams(); //hmmm hvor skal den være?
 
     }
+
     private void tournamentMenu() {
         System.out.println("Welcome to the tournament menu");
 
@@ -151,7 +159,8 @@ public class TournamentOrganizer {
         System.out.println("\tType 2 to edit an existing tournament");
         System.out.println("\tType 3 to delete existing tournament");
         System.out.println("\tType 4 to change the tournament rules");
-        System.out.println("\tType 5 to go back to organizer menu");
+        System.out.println("\tType 5 to view the tournament rules");
+        System.out.println("\tType 6 to go back to organizer menu");
 
         boolean running = true;
         while (running) {
@@ -177,6 +186,8 @@ public class TournamentOrganizer {
                     setTournamentRules();
                     break;
                 case "5":
+                    viewTournamentRules();
+                case "6":
                     organizerMenu();
                 default:
                     System.out.println("That is not an option, try again");
@@ -197,6 +208,8 @@ public class TournamentOrganizer {
         }*/
         }
     }
+
+
     private void teamMenu(){
         System.out.println("Welcome to the team menu");
 
@@ -248,29 +261,38 @@ public class TournamentOrganizer {
         }*/
         }
     }
-    private void addPlayer() {
-        System.out.println("Please enter the name of the player you wish to add");
+    private void createPlayer() {
         boolean running = true;
         while (running) {
 
+            System.out.println("Enter the name of the player you wish to add");
+            String name = input.nextLine();
 
+            System.out.println("Enter the class of which the student attends. An example could be 3.f or \"Biologi class of '02\"");
+            String schoolClass = input.nextLine();
 
+            System.out.println("Enter the email address of the player you wish to add. An example could be anEmail@gmail.com");
+            String mail = input.nextLine();
+
+            System.out.println("Enter the phone number of the student you wish to add. An example could be +45 1234 5678");
+            String phoneNumber = input.nextLine();
+
+            Player player1 = new Player(name, schoolClass, mail, phoneNumber);
         }
-
     }
 
     private void addPlayerToTeam(){
 
-
     }
-    private void save() { //Denne er muligvis overflødig
+
+    private void save() { //Denne funktion er muligvis overflødig
     }
 
     private void createMatch() {
         System.out.println("Please insert the name of the first team here: ");
         boolean running = true;
         while (running) {
-
+            for (Team t : this.knockTourny.getTeams()) {
 
         }
         /*userInput = input.nextLine();
@@ -282,18 +304,15 @@ public class TournamentOrganizer {
         newMatch.setTeam1(team1);
         newMatch.setTeam2(team2);
 */
+        }
     }
 
 
     private void addTeam() {
-            System.out.println("Please insert the name of the new team");
-        boolean running = true;
-        while (running) {
-            String fromInput = input.nextLine();
 
         }
 
-    }
+
 
     private void editTeam(){
         boolean running = true;
@@ -314,7 +333,7 @@ public class TournamentOrganizer {
         boolean running = true;
         while (running) {
                         this.tournamentName = input.nextLine();
-            KnockoutPhase knockoutPhase = new KnockoutPhase(tournamentName);
+            this.knockTourny = new KnockoutPhase(tournamentName);
             System.out.println("Your tournament is now called: " + tournamentName + "\n");
             System.out.println("Would you like to add a new team to the tournament?");
             String input = this.input.nextLine();
@@ -336,8 +355,9 @@ public class TournamentOrganizer {
         System.out.println("The game is won when a team reaches 10 goals. The winner will advance to the next stage while the loser is out");
         System.out.println("When a team concedes a goal, they will be responsible for re-starting the game");
         System.out.println("While playing you are not allowed to spin your players \n");
-        System.out.println("\tType 1 to add a new tournament rule");
-        System.out.println("\tType 2 to go back to organizer menu");
+        System.out.println("\tType 1 to add a new rule for the tournament");
+        System.out.println("\tType 2 to view the tournament rules");
+        System.out.println("\tType 3 to go back to organizer menu");
         boolean running = true;
         while (running) {
             String input = this.input.nextLine();
@@ -353,8 +373,10 @@ public class TournamentOrganizer {
                     addRules();
                     break;
                 case "2":
-                    organizerMenu();
+                    viewTournamentRules();
                     break;
+                case "3":
+                    organizerMenu();
                 default:
                     System.out.println("That is not an option, try again");
 
@@ -371,6 +393,7 @@ public class TournamentOrganizer {
         }
     }
 
+
     private void addRules() {
         // Skal kodes så vi kan tilføje regler til tournamentrules.txt
         // lavet af Frederik og indeholder helt sikkert ikke fejl
@@ -383,8 +406,15 @@ public class TournamentOrganizer {
                 FileWriter fw = new FileWriter(filePath, true);
 
                 String lineToAppend = input.nextLine();
-                fw.write(lineToAppend);
+                fw.write(lineToAppend + "\n");
                 fw.close();
+                running = false;
+                System.out.println("Thank you for adding a new rule.");
+                System.out.println("\tType 1 to add a new tournament rules");
+                System.out.println("\tType 2 to view tournament rules");
+                System.out.println("\tType 3 to go back to organizer menu");
+
+
             } catch (Exception e) {
                 System.out.println(e);
             }
@@ -401,7 +431,7 @@ public class TournamentOrganizer {
     }
 
     private void viewTournamentRules() {
-        // Made by Frederik-Mark og jeg blev lidt tabt i koden  );
+        // Made by Frederik-Hans og jeg blev lidt tabt i koden  );
         boolean running = true;
         while (running) {
             File rules = new File("src/tournamentrules.txt");
@@ -415,9 +445,10 @@ public class TournamentOrganizer {
             while (input.hasNextLine()) {
                 System.out.println(input.nextLine());
             }
-
+            running = false;
         }
     }
+
 
 
     private void viewTeams() {
@@ -531,7 +562,7 @@ private void playerMenu() {
         }
         switch (switcher) {
             case "1":
-                addPlayer();
+                createPlayer();
                 break;
             case "2":
                 addPlayerToTeam();

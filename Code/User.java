@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class User {
@@ -61,6 +63,21 @@ public class User {
     }
 
     private void viewTournamentRules() {
-        // return tournamentRules
+        boolean running = true;
+        while (running) {
+            File rules = new File("src/tournamentrules.txt");
+            Scanner input = null;
+            try {
+                input = new Scanner(rules);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            while (input.hasNextLine()) {
+                System.out.println(input.nextLine());
+            }
+            running = false;
+        }
     }
 }
+
