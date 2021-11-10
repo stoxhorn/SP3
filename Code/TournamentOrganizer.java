@@ -1,12 +1,19 @@
 import java.io.*;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class TournamentOrganizer {
+
     private Scanner input;
+
     private String password;
     private String userInput;
     private String tournamentName;
+
     private KnockoutPhase knockTourny;
+
+    ArrayList<Player> playerList = new ArrayList<Player>();
+    ArrayList<Team> teamList = new ArrayList<Team>();
 
     public TournamentOrganizer() {
         input = new Scanner(System.in);
@@ -210,13 +217,13 @@ public class TournamentOrganizer {
     }
 
 
-    private void teamMenu(){
+    private void teamMenu() {
         System.out.println("Welcome to the team menu");
 
-        System.out.println("\tType 1 to add a new team to tournament");
-        System.out.println("\tType 2 to edit team");
-        System.out.println("\tType 3 to delete team");
-        System.out.println("\tType 4 to go back to organizer menu");
+        System.out.println("\tType 1 to create a new team.");
+        System.out.println("\tType 2 to edit team.");
+        System.out.println("\tType 3 to delete team.");
+        System.out.println("\tType 4 to go back to organizer menu.");
 
         boolean running = true;
         while (running) {
@@ -231,7 +238,7 @@ public class TournamentOrganizer {
             }
             switch (switcher) {
                 case "1":
-                    addTeam();
+                    createTeam();
                     break;
                 case "2":
                     editTeam();
@@ -262,26 +269,94 @@ public class TournamentOrganizer {
         }
     }
     private void createPlayer() {
-        boolean running = true;
-        while (running) {
 
-            System.out.println("Enter the name of the player you wish to add");
-            String name = input.nextLine();
+        int ID = 0; //Mads, skulle de eller skulle de ikke have id her?
 
-            System.out.println("Enter the class of which the student attends. An example could be 3.f or \"Biologi class of '02\"");
-            String schoolClass = input.nextLine();
+        System.out.println("Enter the name of the player you wish to create");
+        String name = input.nextLine();
 
-            System.out.println("Enter the email address of the player you wish to add. An example could be anEmail@gmail.com");
-            String mail = input.nextLine();
+        System.out.println("Enter the class of which the student attends. An example could be 3.f or \"Biologi class of '02\"");
+        String schoolClass = input.nextLine();
 
-            System.out.println("Enter the phone number of the student you wish to add. An example could be +45 1234 5678");
-            String phoneNumber = input.nextLine();
+        System.out.println("Enter the email address of the player you wish to add. An example could be anEmail@gmail.com");
+        String mail = input.nextLine();
 
-            Player player1 = new Player(name, schoolClass, mail, phoneNumber);
+        System.out.println("Enter the phone number of the student you wish to add. An example could be +45 1234 5678");
+        String phoneNumber = input.nextLine();
+
+        System.out.println("This is the information of the player you are about to create");
+        System.out.println("Name: " + name + "\nSchool class: " + schoolClass + "\nEmail: " + mail + "\nPhone number: " + phoneNumber);
+        System.out.println("Do you wish to create this player? \nPress y for yes and n for no.");
+        while (true) {
+            String playerSaveResponse = input.nextLine();
+            if (playerSaveResponse.equalsIgnoreCase("Y")) {
+                Player player1 = new Player(ID, name, schoolClass, mail, phoneNumber);
+                playerList.add(player1);
+                System.out.println("The player has been created!");
+                break;
+            } else if (playerSaveResponse.equalsIgnoreCase("N")) {
+                System.out.println("The player was not created");
+                break;
+            } else {
+                System.out.println("This is an invalid input, please either press y for yes, or n for no");
+            }
         }
+        playerMenu();
     }
 
+
     private void addPlayerToTeam(){
+        System.out.println("This is the player list");
+
+        for (int i = 0; i < playerList.size(); i++) {
+            System.out.println(playerList.get(i).getName() + " - " + playerList.get(i).getSchoolClass());
+
+        }
+        System.out.println("Enter the name of the player you wish to move to a team");
+
+        Player player1 = null;
+        boolean foundPlayer = false;
+        while(!foundPlayer){
+            String name = input.nextLine();
+            for (int i = 0; i < playerList.size(); i++) {
+                if(playerList.get(i).getName().equals(name)) {
+                    player1 = playerList.get(i);
+                    foundPlayer = true;
+                    break;
+                    //Hvis flere spiller har samme navn er det ikke så godt. ID vil nok fikse det.
+                    //Lav metode kaldet "findPlayerByID".
+                }
+            }
+            if(!foundPlayer){
+                System.out.println("There is no player with this name. Please input another name");
+            }
+        }
+
+        System.out.println("This is the team list");
+
+        for (int i = 0; i < teamList.size(); i++) {
+            System.out.println(teamList.get(i).getTeamName());
+        }
+
+        System.out.println("Enter the team of which you want the player to join");
+
+
+        boolean foundTeam = false;
+        while(!foundTeam) {
+            String teamName = input.nextLine();
+            for (int i = 0; i < teamList.size(); i++) {
+                if (teamList.get(i).getTeamName().equals(teamName)) {
+                    teamList.get(i).addPlayer(player1);
+                    foundTeam = true;
+                    break;
+                    //Hvis flere spiller har samme navn er det ikke så godt. ID vil nok fikse det.
+                    //Lav metode kaldet "findPlayerByID".
+                }
+            }
+            if (!foundTeam) {
+                System.out.println("There is no team with this name. Please input another team name");
+            }
+        }
 
     }
 
@@ -308,9 +383,32 @@ public class TournamentOrganizer {
     }
 
 
-    private void addTeam() {
+    private void createTeam() {
+        int ID = 0; //Mads, skulle de eller skulle de ikke have id her?
 
+        System.out.println("Enter the name of the team you wish to create");
+        String teamName = input.nextLine();
+
+        System.out.println("This is the name of the team you are about to create");
+        System.out.println("Name: " + teamName);
+        System.out.println("Do you wish to create this team? \nPress y for yes and n for no.");
+        while (true) {
+            String playerSaveResponse = input.nextLine();
+            if (playerSaveResponse.equalsIgnoreCase("Y")) {
+                Team team1 = new Team(ID, teamName);
+                teamList.add(team1);
+                System.out.println("The team has been created!");
+                break;
+            } else if (playerSaveResponse.equalsIgnoreCase("N")) {
+                System.out.println("The team was not created");
+                break;
+            } else {
+                System.out.println("This is an invalid input, please either press y for yes, or n for no");
+            }
         }
+        teamMenu();
+
+    }
 
 
 
