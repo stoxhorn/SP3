@@ -14,16 +14,23 @@ public class Tournament {
 
     private ArrayList<Match> matches;
     private ArrayList<Team> teams;
-    private ArrayList<Player> playerList;
 
-    public ArrayList<Player> getPlayerList() {
-        return playerList;
-    }
+
 
     public Tournament(){
         this.matches = new ArrayList<>();
         this.teams = new ArrayList<>();
 
+    }
+
+    public ArrayList<Player> getPlayerList() {
+        ArrayList<Player> playerList = new ArrayList<>();
+        for(Team t : this.teams){
+            for(Player p : t.getPlayers()){
+                playerList.add(p);
+            }
+        }
+        return playerList;
     }
 
     // overloaded to take ArrayList
