@@ -15,6 +15,14 @@ public class TournamentOrganizer {
     ArrayList<Player> playerList = new ArrayList<Player>();
     ArrayList<Team> teamList = new ArrayList<Team>();
 
+    // todo : Lav en option for både user og organizer for at se den nødvendige information om spillere og evt hold.
+    // todo : Kunne være sejt at se de tilmeldte spillere til de forskellige hold
+    // todo : Efter man opretter et team sidder man fast i menuen
+    // todo : få ignore case når man skal tilføje en spiller til et hold
+    // todo : Når man opretter et hold og rerunner koden er holdet ikke gemt.
+    // todo : når man skal add player til team er der ingen back knap når man kommer ind i den menu.
+    // todo : flere ting tilføjes her:
+
     public TournamentOrganizer() {
         input = new Scanner(System.in);
         password = "password";
@@ -31,6 +39,7 @@ public class TournamentOrganizer {
         // For the sake of easy development, could contain the 2 lines below, and just save the return
         String input = this.input.nextLine();
         int inputInt = Integer.parseInt(input);
+
 
         if (inputInt == 1) {
             User user = new User();
@@ -69,7 +78,7 @@ public class TournamentOrganizer {
                     showMenu();
                     break;
                 default:
-                    System.out.println("Wrong password. Please try again or type back to go back to main menu. Bitch");
+                    System.out.println("Wrong password. Please try again or type back to go back to main menu.");
             }
 
         /*if (input == password) {
@@ -85,14 +94,16 @@ public class TournamentOrganizer {
 
     private void organizerMenu() {
 
-        System.out.println("Welcome to the Organizer Menu. What would you like to do? ;(");
+        System.out.println("Welcome to the Organizer Menu. What would you like to do?");
         System.out.println("\tType 1 to access tournament menu");
         System.out.println("\tType 2 to access team menu");
         System.out.println("\tType 3 to access player menu");
         System.out.println("\tType 4 to access match menu");
         System.out.println("\tType 5 to see the match programme");
         System.out.println("\tType 6 to go back to main menu");
-        System.out.println("\tType 7 to save and quit");
+        System.out.println("\tType 7 if the teams has been created and the tournament is ready to be played");
+        System.out.println("\tType 8 to save and quit");
+
 
         boolean running = true;
         while (running) {
@@ -124,6 +135,9 @@ public class TournamentOrganizer {
                     showMenu();
                     break;
                 case "7":
+                    finalizeTournament();
+                    break;
+                case "8":
                     save();
                     running = false;
                 default:
@@ -286,19 +300,20 @@ public class TournamentOrganizer {
 
         System.out.println("This is the information of the player you are about to create");
         System.out.println("Name: " + name + "\nSchool class: " + schoolClass + "\nEmail: " + mail + "\nPhone number: " + phoneNumber);
-        System.out.println("Do you wish to create this player? \nPress y for yes and n for no.");
+        System.out.println("Do you wish to create this player? \nPress \"y\" for yes and \"n\" for no.");
         while (true) {
             String playerSaveResponse = input.nextLine();
             if (playerSaveResponse.equalsIgnoreCase("Y")) {
                 Player player1 = new Player(ID, name, schoolClass, mail, phoneNumber);
                 playerList.add(player1);
+                savePlayerToFile(player1);
                 System.out.println("The player has been created!");
                 break;
             } else if (playerSaveResponse.equalsIgnoreCase("N")) {
                 System.out.println("The player was not created");
                 break;
             } else {
-                System.out.println("This is an invalid input, please either press y for yes, or n for no");
+                System.out.println("This is an invalid input, please either press \"y\" for yes, or \"n\" for no");
             }
         }
         playerMenu();
@@ -323,8 +338,8 @@ public class TournamentOrganizer {
                     player1 = playerList.get(i);
                     foundPlayer = true;
                     break;
-                    //Hvis flere spiller har samme navn er det ikke så godt. ID vil nok fikse det.
-                    //Lav metode kaldet "findPlayerByID".
+                    //Hvis flere spiller har det samme navn går det galt. ID vil nok fikse det.
+
                 }
             }
             if(!foundPlayer){
@@ -348,9 +363,10 @@ public class TournamentOrganizer {
                 if (teamList.get(i).getTeamName().equals(teamName)) {
                     teamList.get(i).addPlayer(player1);
                     foundTeam = true;
+                    System.out.println("The player, " + player1.getName() + " was added to the team " + teamName);
                     break;
                     //Hvis flere spiller har samme navn er det ikke så godt. ID vil nok fikse det.
-                    //Lav metode kaldet "findPlayerByID".
+
                 }
             }
             if (!foundTeam) {
@@ -382,6 +398,38 @@ public class TournamentOrganizer {
         }
     }
 
+    private void savePlayerToFile(Player p) {
+        String playerData = "";
+
+        playerData += p;
+
+        try {
+            FileWriter writer = new FileWriter("src/playerList.txt",true);
+            writer.write(playerData);
+            writer.close();
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+    private void savePlayerListToFile() {
+        String playerData = "";
+
+        for (Player a : playerList) {
+            playerData += a;
+        }
+
+        try {
+            FileWriter writer = new FileWriter("src/playerList.txt");
+            writer.write(playerData);
+            writer.close();
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
 
     private void createTeam() {
         int ID = 0; //Mads, skulle de eller skulle de ikke have id her?
@@ -397,6 +445,7 @@ public class TournamentOrganizer {
             if (playerSaveResponse.equalsIgnoreCase("Y")) {
                 Team team1 = new Team(ID, teamName);
                 teamList.add(team1);
+                saveTeamToFile(team1);
                 System.out.println("The team has been created!");
                 break;
             } else if (playerSaveResponse.equalsIgnoreCase("N")) {
@@ -407,10 +456,28 @@ public class TournamentOrganizer {
             }
         }
         teamMenu();
-
     }
 
+    private void finalizeTournament() {
+        System.out.println("Are you certain you want to finalize the tournament? \nIf you want to finalize the tournament, type \"Finalize\", if you want to go back, type \"Undo\"");
+        String playerSaveResponse = input.nextLine();
+        while (true) {
+            if (playerSaveResponse.equalsIgnoreCase("Finalize")) {
+                for (Team t : teamList) {
+                    knockTourny.addTeam(t.getPlayers(), t.getTeamName());
+                }
+                System.out.println("The tournament has been finalized and is now ready to be played!");
+                break;
 
+            } else if (playerSaveResponse.equalsIgnoreCase("Undo")) {
+                System.out.println("The tournament finalization was canceled");
+
+            } else {
+                System.out.println("This is an invalid input, please either type \"Finalize\" to create the tournament, or \"Undo\" to cancel the creation of the tournament");
+            }
+        }
+        //displayTournament(); to show a visualisation of the bracket (family tree)
+    }
 
     private void editTeam(){
         boolean running = true;
@@ -491,10 +558,23 @@ public class TournamentOrganizer {
         }
     }
 
+    private void saveTeamToFile (Team t) {
+        String teamData = "";
+
+        teamData += t;
+
+        try {
+            FileWriter writer = new FileWriter("src/teamList.txt",true);
+            writer.write(teamData);
+            writer.close();
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
 
     private void addRules() {
         // Skal kodes så vi kan tilføje regler til tournamentrules.txt
-        // lavet af Frederik og indeholder helt sikkert ikke fejl
 
         System.out.println("Please enter a new rule to add to the tournament rule: ");
         boolean running = true;
@@ -692,5 +772,5 @@ private void playerMenu() {
         return;
     }*/
     }
-}
+    }
 }
