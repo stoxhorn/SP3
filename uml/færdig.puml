@@ -1,0 +1,176 @@
+@startuml
+class KnockoutPhase [[java:KnockoutPhase]] {
+	-rounds: ArrayList<Match[]>
+	-numberOfTeams: int
+	-numberOfRounds: int
+	-tournamentName: String
+	-tournamentTree: ArrayList<Match[]>
+	+KnockoutPhase(tournamentName: String)
+	
+	+createFirstRound(): void
+	+createNextRound(): void
+	-addRoundToTournament(matches: Match[]): void
+	+isRoundOver(matches: Match[]): boolean
+	+makeMatches(teams: ArrayList<Team>): Match[]
+
+	+getTournamentTree(): ArrayList<Match[]>
+	+getNumberOfTeams(): int
+	+getNumberOfRounds(): int
+}
+KnockoutPhase --|> Tournament  
+
+class Match [[java:Match]] {
+	-matchID: int
+	-team1Goals: int
+	-team2Goals: int
+	-date: String
+	-matchDone: boolean
+	input: Scanner
+	+Match(t1: Team, t2: Team)
+	-addDate(): void
+	+updateResult(team1Goals: int, team2Goals: int): void
+	+isMatchDone(): boolean
+	
+	+setTeam1Goals(team1Goals: int): void
+	+setTeam2Goals(team2Goals: int): void
+	+setDate(date: String): void
+	+setMatchDone(matchDone: boolean): void
+	+setTeam1(team1: Team): void
+	+setTeam2(team2: Team): void
+	+setMatchID(newID: int): void
+	
+	+getMatchID(): int
+	+getDate(): String
+	+getTeam1Goals(): int
+	+getTeam2Goals(): int
+	+toString(): String
+}
+Match --> "2" Team
+
+class Player [[java:Player]] {
+	-playerID: int
+	-name: String
+	-schoolClass: String
+	-mail: String
+	-phoneNumber: String
+	+Player(playerID: int, name: String, schoolClass: String, mail: String, phoneNumber: String)
+	+Player(name: String, schoolClass: String, mail: String, phoneNumber: String)
+	
+	+copyPlayer(newID: int): Player
+	
+	+setName(name: String): void
+	+setSchoolClass(schoolClass: String): void
+	+setMail(mail: String): void
+	+setPhoneNumber(phoneNumber: String): void
+
+	+getPlayerID(): int
+	+getName(): String
+	+getSchoolClass(): String
+	+getMail(): String
+	+getPhoneNumber(): String
+	+toString(): String
+	
+}
+class Team [[java:Team]] {
+	-teamID: int
+	-teamName: String
+	-goalsScored: int
+	-goalsConceded: int
+	+Team(teamID: int, teamName: String)
+	
+	+addPlayer(newPlayer: Player): void
+	+removePlayer(playerID: int): void
+	
+	+getID(): int
+	+getAmountOfPlayers(): int
+	+getGoalsScored(): int
+	+getGoalsConceded(): int
+	+getTeamName(): String
+	+toString(): String
+}
+Team --> "*" Player
+class TeamTest [[java:TeamTest]] {
+	Organizer : TournamentOrganizer
+	+{static} main(args: String[]): void
+}
+TeamTest --> "1" TournamentOrganizer
+
+class Tournament [[java:Tournament]] {
+	-matches : ArrayList<Match>
+	-teams : ArrayList<Team>
+	+Tournament()
+
+	+addTeam(players: ArrayList<Player>, teamName: String): void
+	+addTeam(players: Player[], teamName: String): void
+	-addTeamHelper(players: Player[], teamName: String): void
+	+addMatch(newMatch: Match): void
+	+removeMatch(): void
+	+editMatch(matchId: int, team1Goals: int, team2Goals: int): void
+	+saveToFile(): void
+	
+	+getAmountOfPlayers(): int
+	+getWinner(): void
+	+toString(): String
+}
+
+Tournament --> "*" Match
+Tournament --> "*" Team
+
+class TournamentOrganizer [[java:TournamentOrganizer]] {
+	-input: Scanner
+	-password: String
+	-userInput: String
+	-tournamentName: String
+	+TournamentOrganizer()
+	
+	+showMenu(): void
+	-organizerLogin(): void
+	-organizerMenu(): void
+	-tournamentMenu(): void
+	-teamMenu(): void
+	-matchMenu(): void
+	-playerMenu(): void
+	
+	-createPlayer(): void
+	-addPlayerToTeam(): void
+	-savePlayerToFile(p: Player): void
+	-savePlayerListToFile(): void
+	-deletePlayer(): void
+	-editPlayer(): void
+	
+	-save(): void
+	
+	-createMatch(): void
+	-deleteMatch(): void
+	-editMatch(): void
+	
+	-createTeam(): void
+	-deleteTeam(): void
+	-editTeam(): void
+	-saveTeamToFile(t: Team): void
+	-viewTeams(): void
+	
+	-createNewTournament(): void
+	-editTournament(): void
+	-finalizeTournament(): void
+	-setTournamentRules(): void
+	-addRules(): void
+	-viewMatchProgramme(): void
+	-viewTournamentRules(): void
+	-deleteTournament(): void
+	
+}
+
+TournamentOrganizer --> "1" KnockoutPhase
+TournamentOrganizer --> "*" Player
+TournamentOrganizer --> "*" Team
+TournamentOrganizer --> "1" User
+
+class User [[java:User]] {
+	-input: Scanner
+	+userMenu(): void
+	-viewTeams(): void
+	-viewMatchProgramme(): void
+	-viewTournamentRules(): void
+}
+@enduml
