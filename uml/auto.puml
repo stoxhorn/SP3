@@ -1,0 +1,186 @@
+@startuml
+class KnockoutPhase [[java:KnockoutPhase]] {
+	~rounds: ArrayList<Match[]>
+	-numberOfTeams: int
+	-numberOfRounds: int
+	-tournamentName: String
+	-tournamentTree: ArrayList<Match[]>
+	+getTournamentTree(): ArrayList<Match[]>
+	+KnockoutPhase(tournamentName: String)
+	+createNextRound(): void
+	-addRoundToTournament(matches: Match[]): void
+	+isRoundOver(matches: Match[]): boolean
+	+createFirstRound(): void
+	+makeMatches(teams: ArrayList<Team>): Match[]
+	+getNumberOfTeams(): int
+	+getNumberOfRounds(): int
+}
+class Tournament [[java:Tournament]] {
+}
+Tournament <|-- KnockoutPhase
+class Match [[java:Match]] {
+	-matchID: int
+	-team1Goals: int
+	-team2Goals: int
+	-date: String
+	~matchDone: boolean
+	~input: Scanner
+	+setTeam1Goals(team1Goals: int): void
+	+setTeam2Goals(team2Goals: int): void
+	+setDate(date: String): void
+	+setMatchDone(matchDone: boolean): void
+	+setTeam1(team1: Team): void
+	+setTeam2(team2: Team): void
+	+Match(t1: Team, t2: Team)
+	+getMatchID(): int
+	+setMatchID(newID: int): void
+	+getDate(): String
+	-addDate(): void
+	+updateResult(team1Goals: int, team2Goals: int): void
+	+getTeam1Goals(): int
+	+getTeam2Goals(): int
+	+isMatchDone(): boolean
+	+toString(): String
+}
+class Team [[java:Team]] {
+}
+Match --> "1" Team : team1
+class Team [[java:Team]] {
+}
+Match --> "1" Team : team2
+class Team [[java:Team]] {
+}
+Match --> "1" Team : getTeam1()
+class Team [[java:Team]] {
+}
+Match --> "1" Team : getTeam2()
+class Team [[java:Team]] {
+}
+Match --> "1" Team : getWinner()
+class Player [[java:Player]] {
+	~playerID: int
+	-name: String
+	-schoolClass: String
+	-mail: String
+	-phoneNumber: String
+	+Player(playerID: int, name: String, schoolClass: String, mail: String, phoneNumber: String)
+	+Player(name: String, schoolClass: String, mail: String, phoneNumber: String)
+	+copyPlayer(newID: int): Player
+	+toString(): String
+	+getPlayerID(): int
+	+getName(): String
+	+setName(name: String): void
+	+getSchoolClass(): String
+	+setSchoolClass(schoolClass: String): void
+	+getMail(): String
+	+setMail(mail: String): void
+	+getPhoneNumber(): String
+	+setPhoneNumber(phoneNumber: String): void
+}
+class Team [[java:Team]] {
+	-{static} teamIdGenerator: int
+	-teamID: int
+	-teamName: String
+	-goalsScored: int
+	-goalsConceded: int
+	+Team(teamID: int, teamName: String)
+	+getID(): int
+	+getAmountOfPlayers(): int
+	+getGoalsScored(): int
+	+getGoalsConceded(): int
+	+addPlayer(newPlayer: Player): void
+	+removePlayer(playerID: int): void
+	+getTeamName(): String
+	+toString(): String
+}
+class Player [[java:Player]] {
+}
+Team --> "*" Player : players
+class Player [[java:Player]] {
+}
+Team --> "*" Player : getPlayers()
+class TeamTest [[java:TeamTest]] {
+	+{static} main(args: String[]): void
+}
+class Tournament [[java:Tournament]] {
+	+Tournament()
+	+addTeam(players: ArrayList<Player>, teamName: String): void
+	+addTeam(players: Player[], teamName: String): void
+	-addTeamHelper(players: Player[], teamName: String): void
+	+getAmountOfPlayers(): int
+	+addMatch(newMatch: Match): void
+	+removeMatch(): void
+	+editMatch(matchId: int, team1Goals: int, team2Goals: int): void
+	+getWinner(): void
+	+saveToFile(): void
+	+toString(): String
+}
+class Match [[java:Match]] {
+}
+Tournament --> "*" Match : matches
+class Team [[java:Team]] {
+}
+Tournament --> "*" Team : teams
+class Match [[java:Match]] {
+}
+Tournament --> "*" Match : getMatches()
+class Team [[java:Team]] {
+}
+Tournament --> "*" Team : getTeams()
+class Player [[java:Player]] {
+}
+Tournament --> "*" Player : getPlayerList()
+class TournamentOrganizer [[java:TournamentOrganizer]] {
+	-input: Scanner
+	-password: String
+	-userInput: String
+	-tournamentName: String
+	+TournamentOrganizer()
+	+showMenu(): void
+	-organizerLogin(): void
+	-organizerMenu(): void
+	-tournamentMenu(): void
+	-teamMenu(): void
+	-createPlayer(): void
+	-addPlayerToTeam(): void
+	-save(): void
+	-createMatch(): void
+	-savePlayerToFile(p: Player): void
+	-savePlayerListToFile(): void
+	-createTeam(): void
+	-finalizeTournament(): void
+	-editTeam(): void
+	-editTournament(): void
+	-createNewTournament(): void
+	-deleteTeam(): void
+	-setTournamentRules(): void
+	-saveTeamToFile(t: Team): void
+	-addRules(): void
+	-viewMatchProgramme(): void
+	-viewTournamentRules(): void
+	-viewTeams(): void
+	-deleteTournament(): void
+	-deleteMatch(): void
+	-editMatch(): void
+	-deletePlayer(): void
+	-editPlayer(): void
+	-matchMenu(): void
+	-playerMenu(): void
+}
+class KnockoutPhase [[java:KnockoutPhase]] {
+}
+TournamentOrganizer --> "1" KnockoutPhase : knockTourny
+class Player [[java:Player]] {
+}
+TournamentOrganizer --> "*" Player : playerList
+class Team [[java:Team]] {
+}
+TournamentOrganizer --> "*" Team : teamList
+class User [[java:User]] {
+	-input: Scanner
+	#userMenu(): void
+	-viewTeams(): void
+	-viewMatchProgramme(): void
+	-viewTournamentRules(): void
+}
+@enduml
