@@ -5,6 +5,30 @@ public class Match {
     private int team1Goals;
     private int team2Goals;
 
+    public void setTeam1Goals(int team1Goals) {
+        this.team1Goals = team1Goals;
+    }
+
+    public void setTeam2Goals(int team2Goals) {
+        this.team2Goals = team2Goals;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setMatchDone(boolean matchDone) {
+        this.matchDone = matchDone;
+    }
+
+    public void setTeam1(Team team1) {
+        this.team1 = team1;
+    }
+
+    public void setTeam2(Team team2) {
+        this.team2 = team2;
+    }
+
     private String date;
 
     boolean matchDone;
@@ -71,5 +95,23 @@ public class Match {
     public boolean isMatchDone(){
         return matchDone;
     }
+
+    @Override
+    public String toString(){
+        String tmp = "";
+
+        tmp += team1.getTeamName() + " vs " +  team2.getTeamName() + "\n";
+        if(matchDone){
+            tmp += team1.getTeamName() + " goals: " + team1Goals + "\n";
+            tmp += team2.getTeamName() + " goals: " + team2Goals + "\n";
+            tmp += "The winner is: " + getWinner().getTeamName();
+        }
+        else{
+            tmp += "Match has not been played yet";
+        }
+
+        return tmp;
+    }
+
 }
 

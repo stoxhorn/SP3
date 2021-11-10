@@ -14,6 +14,40 @@ public class Player {
         this.phoneNumber = phoneNumber;
     }
 
+    public Player(String name, String schoolClass, String mail, String phoneNumber) {
+        this.playerID = -1;
+        this.name = name;
+        this.schoolClass = schoolClass;
+        this.mail = mail;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Player copyPlayer(int newID){
+        Player newPlayer = new Player(newID, this.name, this.schoolClass, this.mail, this.phoneNumber);
+        return newPlayer;
+    }
+
+
+    @Override
+    public String toString(){
+        String tmp = "";
+
+        String IDString = "";
+
+        if(this.playerID == -1){
+            IDString = "Not given an ID, yet";
+        }else{
+            IDString = Integer.toString(this.playerID);
+        }
+
+        tmp += "Player ID: " + this.playerID + "\n";
+
+        tmp += "Name: " + this.name + "\n";
+        tmp += "Player info:\nClass: " + this.schoolClass + ", Mail: " + this.mail + ", Phone: " + this.phoneNumber + "\n";
+
+        return tmp;
+    }
+
     public int getPlayerID() {
         return playerID;
     }
