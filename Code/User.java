@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class User {
     private Scanner input = new Scanner(System.in);
-    private String userInput = input.nextLine();
+
 
     protected void userMenu() {
         System.out.println("Welcome to the user menu. What would you like to do?");
@@ -77,6 +77,11 @@ public class User {
                 System.out.println(input.nextLine());
             }
             running = false;
+            System.out.println("___________________________");
+            System.out.println("Type 1 to view the match programme");
+            System.out.println("Type 2 to view the teams participating in the tournament");
+            System.out.println("Type 3 to view the tournament rules");
+            System.out.println("Type 4 to go back to main menu");
         }
     }
 }

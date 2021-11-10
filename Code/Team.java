@@ -9,11 +9,10 @@ public class Team {
 
     private String teamName;
 
-    // UML diagram says this should be static, that is wrong
     ArrayList<Player> players;
 
- //   private int points;
- //    private int gamesPlayed;
+ // private int points;
+ // private int gamesPlayed;
     private int goalsScored;
     private int goalsConceded;
 
@@ -27,6 +26,13 @@ public class Team {
   /*  public int getPoints() {
         return points;
     }*/
+    public int getID(){
+      return this.teamID;
+    }
+
+    public int getAmountOfPlayers(){
+        return this.players.size();
+    }
 
     public int getGoalsScored() {
         return goalsScored;
@@ -55,12 +61,20 @@ public class Team {
         }
 
     }
+    public ArrayList<Player> getPlayers(){
+        return this.players;
+    }
+
+    public String getTeamName(){
+        return this.teamName;
+    }
 
     @Override
     public String toString(){
         String tmp = "";
         tmp += "TeamID: " + teamID;
         tmp += "\nTeam Name: " + teamName;
+        tmp += "\n_____________________________";
 
         return tmp;
     }
