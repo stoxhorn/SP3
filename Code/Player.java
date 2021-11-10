@@ -29,21 +29,25 @@ public class Player {
 
 
     @Override
-    public String toString(){
+    public String toString() {
         String tmp = "";
 
         String IDString = "";
 
-        if(this.playerID == -1){
+        if (this.playerID == -1) {
             IDString = "Not given an ID, yet";
-        }else{
+        } else {
             IDString = Integer.toString(this.playerID);
         }
 
         tmp += "Player ID: " + this.playerID + "\n";
 
         tmp += "Name: " + this.name + "\n";
-        tmp += "Player info:\nClass: " + this.schoolClass + ", Mail: " + this.mail + ", Phone: " + this.phoneNumber + "\n";
+        tmp += "Class: " + this.schoolClass + "\n";
+        tmp += "Mail: " + this.mail + "\n";
+        tmp += "Phone: " + this.phoneNumber + "\n";
+        tmp += "_________________________" + "\n";
+
 
         return tmp;
     }
