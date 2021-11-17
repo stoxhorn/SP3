@@ -61,22 +61,29 @@ public class Team {
         }
 
     }
+
+    public void addGoalsScored(int goals){
+        this.goalsScored += goals;
+    }
+
+    public void addGoalsConceded(int goals){
+        this.goalsConceded += goals;
+    }
+
+    @Override
+    public String toString(){
+        String tmp = "";
+        tmp += teamID + "," + teamName + "\n";
+        return tmp;
+    }
+
+
     public ArrayList<Player> getPlayers(){
         return this.players;
     }
 
     public String getTeamName(){
         return this.teamName;
-    }
-
-    @Override
-    public String toString(){
-        String tmp = "";
-        tmp += "TeamID: " + teamID;
-        tmp += "\nTeam Name: " + teamName;
-        tmp += "\n_____________________________";
-
-        return tmp;
     }
 }
 

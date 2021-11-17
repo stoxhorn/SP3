@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Tournament {
+
+    private ArrayList<Match> matches;
+    private ArrayList<Team> teams;
+
     public ArrayList<Match> getMatches() {
         return matches;
     }
@@ -12,8 +16,7 @@ public class Tournament {
         return teams;
     }
 
-    private ArrayList<Match> matches;
-    private ArrayList<Team> teams;
+
 
 
 

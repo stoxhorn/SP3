@@ -6,9 +6,9 @@ public class Player {
     private String mail;
     private String phoneNumber;
 
-    public Player(int playerID, String name, String schoolClass, String mail, String phoneNumber) {
+    public Player(int playerID, String playerName, String schoolClass, String mail, String phoneNumber) {
         this.playerID = playerID;
-        this.name = name;
+        this.name = playerName;
         this.schoolClass = schoolClass;
         this.mail = mail;
         this.phoneNumber = phoneNumber;
@@ -40,13 +40,7 @@ public class Player {
             IDString = Integer.toString(this.playerID);
         }
 
-        tmp += "Player ID: " + this.playerID + "\n";
-
-        tmp += "Name: " + this.name + "\n";
-        tmp += "Class: " + this.schoolClass + "\n";
-        tmp += "Mail: " + this.mail + "\n";
-        tmp += "Phone: " + this.phoneNumber + "\n";
-        tmp += "_________________________" + "\n";
+        tmp += this.playerID + "," + this.name+ "," + this.schoolClass + "," + this.mail + "," + this.phoneNumber + "\n";
 
 
         return tmp;
@@ -56,7 +50,7 @@ public class Player {
         return playerID;
     }
 
-    public String getName() {
+    public String getPlayerName() {
         return name;
     }
 
