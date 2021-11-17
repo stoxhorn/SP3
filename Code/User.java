@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class User {
@@ -55,7 +56,14 @@ public class User {
 
     
     private void viewTeams() {
-       // return teams;
+        IO io;
+
+        io = new DBConnector();
+        io.readTeamData();
+
+        ArrayList<Team> teamdata;
+        teamdata = io.readTeamData();
+        System.out.println(teamdata);
     }
 
     private void viewMatchProgramme() {

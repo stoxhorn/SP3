@@ -16,10 +16,9 @@ public class TournamentOrganizer {
     ArrayList<Team> teamList = new ArrayList<Team>();
 
     // todo : Lav en option for både user og organizer for at se den nødvendige information om spillere og evt hold.
-    // todo : Kunne være sejt at se de tilmeldte spillere til de forskellige hold
-    // todo : Efter man opretter et team sidder man fast i menuen
-    // todo : få ignore case når man skal tilføje en spiller til et hold
-    // todo : Når man opretter et hold og rerunner koden er holdet ikke gemt.
+    // todo : Kunne være sejt at se de tilmeldte spillere til de forskellige
+    // todo : Når man opretter et hold og rerunner koden er holdet gemt i filen, men ikke gemt i listen.
+    // todo : Når man opretter spillere og rerunner koden er spillerne gemt i filen og ikke gemt i listen.
     // todo : når man skal add player til team er der ingen back knap når man kommer ind i den menu.
     // todo : flere ting tilføjes her:
 
@@ -57,7 +56,7 @@ public class TournamentOrganizer {
 
         //todo : få implementeret ignoreCase til back.
 
-        System.out.println("Please enter the Organizer password. \nIf you would like to return to the previous screen, type back.");
+        System.out.println("Please enter the Organizer password. \nIf you would like to return to the previous screen, type b");
         boolean running = true;
         while (running) {
 
@@ -74,7 +73,7 @@ public class TournamentOrganizer {
                 case "password":
                     organizerMenu();
                     break;
-                case "back":
+                case "b":
                     showMenu();
                     break;
                 default:
@@ -284,7 +283,7 @@ public class TournamentOrganizer {
     }
     private void createPlayer() {
 
-        int ID = 0; //Mads, skulle de eller skulle de ikke have id her?
+        int ID = 0;
 
         System.out.println("Enter the name of the player you wish to create");
         String name = input.nextLine();
@@ -307,6 +306,9 @@ public class TournamentOrganizer {
                 Player player1 = new Player(ID, name, schoolClass, mail, phoneNumber);
                 playerList.add(player1);
                 savePlayerToFile(player1);
+                IO io;
+                io = new DBConnector();
+                io.savePlayerData(playerList);
                 System.out.println("The player has been created!");
                 break;
             } else if (playerSaveResponse.equalsIgnoreCase("N")) {
@@ -324,17 +326,17 @@ public class TournamentOrganizer {
         System.out.println("This is the player list");
 
         for (int i = 0; i < playerList.size(); i++) {
-            System.out.println(playerList.get(i).getName() + " - " + playerList.get(i).getSchoolClass());
+            System.out.println(playerList.get(i).getPlayerName() + " - " + playerList.get(i).getSchoolClass());
 
         }
-        System.out.println("Enter the name of the player you wish to move to a team");
+        System.out.println("Enter the name of the player you wish to move to a team. Type b to go back");
 
         Player player1 = null;
         boolean foundPlayer = false;
         while(!foundPlayer){
             String name = input.nextLine();
             for (int i = 0; i < playerList.size(); i++) {
-                if(playerList.get(i).getName().equals(name)) {
+                if(playerList.get(i).getPlayerName().equalsIgnoreCase(name)) {
                     player1 = playerList.get(i);
                     foundPlayer = true;
                     break;
@@ -345,6 +347,7 @@ public class TournamentOrganizer {
             if(!foundPlayer){
                 System.out.println("There is no player with this name. Please input another name");
             }
+
         }
 
         System.out.println("This is the team list");
@@ -360,12 +363,13 @@ public class TournamentOrganizer {
         while(!foundTeam) {
             String teamName = input.nextLine();
             for (int i = 0; i < teamList.size(); i++) {
-                if (teamList.get(i).getTeamName().equals(teamName)) {
+                if (teamList.get(i).getTeamName().equalsIgnoreCase(teamName)) {
                     teamList.get(i).addPlayer(player1);
                     foundTeam = true;
-                    System.out.println("The player, " + player1.getName() + " was added to the team " + teamName);
-                    break;
-                    //Hvis flere spiller har samme navn er det ikke så godt. ID vil nok fikse det.
+                    System.out.println("The player, " + player1.getPlayerName() + " was added to the team " + teamName);
+                    playerMenu();
+
+                    //Hvis flere spiller har samme navn opstår der problemer, ID vil fikse det.
 
                 }
             }
@@ -400,6 +404,7 @@ public class TournamentOrganizer {
 
     private void savePlayerToFile(Player p) {
         String playerData = "";
+        playerData = "playerID, playerName, schoolClass, mail, phoneNumber \n";
 
         playerData += p;
 
@@ -432,7 +437,7 @@ public class TournamentOrganizer {
 
 
     private void createTeam() {
-        int ID = 0; //Mads, skulle de eller skulle de ikke have id her?
+        int ID = 0;
 
         System.out.println("Enter the name of the team you wish to create");
         String teamName = input.nextLine();
@@ -446,6 +451,9 @@ public class TournamentOrganizer {
                 Team team1 = new Team(ID, teamName);
                 teamList.add(team1);
                 saveTeamToFile(team1);
+                IO io;
+                io = new DBConnector();
+                io.saveTeamData(teamList);
                 System.out.println("The team has been created!");
                 break;
             } else if (playerSaveResponse.equalsIgnoreCase("N")) {
@@ -625,6 +633,10 @@ public class TournamentOrganizer {
             }
             running = false;
         }
+        System.out.println("__________________________");
+        System.out.println("Type 1 to add a new tournament rules");
+        System.out.println("Type 2 to view tournament rules");
+        System.out.println("Type 3 to go back to organizer menu");
     }
 
 
