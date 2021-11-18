@@ -73,7 +73,10 @@ public class Team {
     @Override
     public String toString(){
         String tmp = "";
-        tmp += teamID + "," + teamName + "\n";
+        tmp += "\n" + "Team ID: " + teamID + ", " + "Team name: " + teamName + "\nGoals Scored: " + goalsScored + " Goals Conceded: " + goalsConceded;
+        for(Player p : this.players){
+            tmp += "\n" + p;
+        }
         return tmp;
     }
 

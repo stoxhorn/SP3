@@ -39,10 +39,10 @@ public class FileReader implements IO{
             }
 
         }catch(FileNotFoundException e){
-            //
+            System.out.println("File not found");
         }catch (NoSuchElementException e){
-            System.out.println("file is empty");
-            //
+            System.out.println("File is empty");
+            
         }
 
        return players;
@@ -69,12 +69,12 @@ public class FileReader implements IO{
             while(scan.hasNextLine()){
                 String [] values = scan.nextLine().split(",");
                 int teamID = Integer.parseInt(values[0]);
-                String teamName = new String(values[1]);
+                String teamName = values[1];
                 Team team = new Team(teamID, teamName);
                 teams.add(team);
             }
         }catch(FileNotFoundException e){
-
+            System.out.println("No file found");
         }catch(NoSuchElementException e){
             System.out.println("File is empty");
         }

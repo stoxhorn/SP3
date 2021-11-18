@@ -184,18 +184,31 @@ public class DBConnector implements IO {
             String sql = "SELECT * FROM Team";
             ResultSet rs = stmt.executeQuery(sql);
 
+            ArrayList<Player> playerList = readPlayerData();
+
             //STEP 5: Extract data from result set
             while(rs.next()){
                 //Retrieve by column name
                 int teamID  = rs.getInt("teamID");
                 String teamName = rs.getString("teamName");
-                String goalsScored = rs.getString("goalsScored");
-                String goalsConceded = rs.getString("goalsConceded");
-                String players = rs.getString("players");
 
-                String tmpStr = "";
-                tmpStr += teamID + ", " + teamName + ", " + goalsScored + ", " + goalsConceded + ", " + players;
-                teamData.add(tmpStr);
+                int goalsScored = Integer.parseInt(rs.getString("goalsScored"));
+                int goalsConceded = Integer.parseInt(rs.getString("goalsConceded"));
+
+                String[] playerString = rs.getString("players").split(",");
+
+
+                Team newTeam = new Team(teamID, teamName);
+
+                newTeam.addGoalsConceded(goalsScored);
+                newTeam.addGoalsConceded(goalsConceded);
+
+                if(playerString.length != 0) {
+                    for (String i : playerString) {
+                        newTeam.addPlayer(playerList.get(Integer.parseInt(i)-1));
+                    }
+                }
+                teams.add(newTeam);
             }
             //STEP 6: Clean-up environment
             rs.close();
@@ -221,18 +234,6 @@ public class DBConnector implements IO {
                 se.printStackTrace();
             }//end finally try
         }//end try
-
-
-        for(String str : teamData){
-            String[] tmp = str.split(",");
-            int teamID = Integer.parseInt(tmp[0]);
-            String teamName = tmp[1];
-            String goalsScored = tmp[2];
-            String goalsConceded = tmp[3];
-            String players = tmp[4:-1];
-
-
-        }
 
 
         return teams;

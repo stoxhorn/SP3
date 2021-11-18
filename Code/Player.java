@@ -40,7 +40,7 @@ public class Player {
             IDString = Integer.toString(this.playerID);
         }
 
-        tmp += this.playerID + "," + this.name+ "," + this.schoolClass + "," + this.mail + "," + this.phoneNumber + "\n";
+        tmp += "PlayerID: " + this.playerID + ", name: " + this.name+ ", school class: " + this.schoolClass + ", email: " + this.mail + ", phone number: " + this.phoneNumber;
 
 
         return tmp;
